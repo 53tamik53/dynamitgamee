@@ -22,7 +22,7 @@ public class test3 : MonoBehaviour
 
 
     private Transform ebeOyuncu;
-    public float kaçmaMesafesi;
+    public float rundirection;
 
     private void Start()
     {
@@ -37,10 +37,10 @@ public class test3 : MonoBehaviour
         if (this.gameObject.tag == "human")
         {
             ebeOyuncu = GameObject.FindGameObjectWithTag("bomberman").transform;
-            Vector2 kaçmaYönü = (Vector2)transform.position - (Vector2)ebeOyuncu.position;
-            float uzaklýk = kaçmaYönü.magnitude;
+            Vector2 runrange = (Vector2)transform.position - (Vector2)ebeOyuncu.position;
+            float range = runrange.magnitude;
 
-            if (uzaklýk > kaçmaMesafesi)
+            if (range > rundirection)
             {
                 if (Vector2.Distance(transform.position, patrolPoints[currentPatrolPointIndex].position) < 0.2f)
                 {
@@ -85,13 +85,11 @@ public class test3 : MonoBehaviour
                     }
                 }
 
-                // Hedefe doðru yönelme
                 Vector2 moveDirection = nearestTarget.position - transform.position;
                 moveDirection.Normalize();
                 float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-                // Düþmaný en yakýndaki hedefe doðru hareket ettirme
                 rb.velocity = new Vector2(moveDirection.x * enemySpeed, moveDirection.y * enemySpeed);
 
             }
